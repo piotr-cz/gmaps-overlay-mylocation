@@ -393,10 +393,5 @@ export default function(gMapsApi, ...instanceArgs) {
   }
 
   // Initialize
-  if (instanceArgs.length) {
-    return new MylocationOverlay(...instanceArgs)
-  }
-
-  // Return class
-  return MylocationOverlay
+  return new MylocationOverlay(...instanceArgs)
 }
