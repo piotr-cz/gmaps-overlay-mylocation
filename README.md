@@ -7,6 +7,8 @@ Why not just draw [circle shape](https://developers.google.com/maps/documentatio
   This is handy when using multiple overlays.
 
 
+![screenshot](./images/screenshot.png)
+
 ## Installation
 ```sh
 npm install @piotr-cz/gmaps-overlay-mylocation
