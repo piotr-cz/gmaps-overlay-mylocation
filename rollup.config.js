@@ -14,6 +14,12 @@ export default {
     {
       format: 'esm',
       file: 'dist/index.esm.js',
-    }
-  ]
+    },
+    {
+      format: 'iife',
+      file: 'dist/index.iife.js',
+      name: 'mylocationOverlayFactory',
+      exports: 'named',
+    },
+  ],
 }

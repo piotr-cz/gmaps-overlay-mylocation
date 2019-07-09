@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no" />
+    <title>My location Google Maps overlay Example</title>
+    <link href="../dist/index.css" rel="stylesheet" />
+    <style>
+      html,
+      body { height: 100%; }
+
+      body {
+        margin: 0;
+        position: relative;
+      }
+
+      #map-container {
+        width: 100%;
+        height: 100%;
+        background-color: #f7f7f7;
+      }
+
+      #mylocation-button {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      @media (max-width: 500px) {
+        #mylocation-button { top: 60px; }
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+
+    <div id="map-container">
+      Loading
+      &hellip;
+    </div>
+
+    <button id="mylocation-button" type="button">
+      📍 My location
+    </button>
+
+    <!-- Add your Google Maps key either here or in .env file -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_KEY"></script>
+
+    <script type="module">
+      import mylocationOverlayFactory from '../src/index.js'
+
+      async function app() {
+        const mapElement = document.querySelector('#map-container')
+        const myLocationElement = document.querySelector('#mylocation-button')
+
+        // Set default coords
+        const defaultCoords = {
+          latitude: 51.178882,
+          longitude: -1.826215,
+          accuracy: 30,
+        }
+
+        // Initialize map
+        const map = new google.maps.Map(mapElement, {
+          center: {
+            lat: defaultCoords.latitude,
+            lng: defaultCoords.longitude,
+          },
+          zoom: 17,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+        })
+
+        // Initialize overlay
+        const mylocationOverlay = mylocationOverlayFactory(google.maps)
+        await mylocationOverlay.initialize(map)
+
+        // Set coordinates and show
+        mylocationOverlay.setCoordinates(defaultCoords)
+
+        // Button interaction
+        myLocationElement.addEventListener('click', async (ev) => {
+          ev.preventDefault()
+
+          let position
+
+          try {
+            position = await new Promise((resolve, reject) =>
+              window.navigator.geolocation.getCurrentPosition(resolve, reject, {enableHighAccuracy: true})
+            )
+          } catch (error) {
+            window.alert(error.message)
+            return
+          }
+
+          map.panTo({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          })
+
+          mylocationOverlay.setCoordinates(position.coords)
+        })
+
+        return {
+          map,
+          mylocationOverlay
+        }
+      }
+
+      // Initialize map and add public API
+      app()
+        .then(api => window.myLocationOverlayExampleApi = api)
+
+    </script>
+  </body>
+</html>
