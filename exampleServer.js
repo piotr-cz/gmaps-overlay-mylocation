@@ -9,12 +9,6 @@ const fs = require('fs')
 const fsPromises = fs.promises
 const http = require('http')
 
-const envFileLocation = './.env'
-
-const envReplacements =
-  fs.existsSync(envFileLocation) &&
-  parseEnv(fs.readFileSync(envFileLocation)).map(([key, value]) => [RegExp(key, 'g'), value])
-
 const listenOptions = {
   port: 3000,
   host: '127.0.0.1',
@@ -67,11 +61,10 @@ const server = http.createServer(async (request, response) => {
   }
 
   // Replace env variables in html files
-  if (envReplacements && contentType === 'text/html') {
-    body = envReplacements.reduce(
-      (string, envPair) => string.replace(...envPair),
-      body.toString()
-    )
+  if (process.env.GOOGLE_MAPS_KEY && contentType === 'text/html') {
+    body = body
+      .toString()
+      .replace(/\bGOOGLE_MAPS_KEY\b/g, process.env.GOOGLE_MAPS_KEY)
   }
 
   response
@@ -85,18 +78,3 @@ server.listen(listenOptions, () => {
 
   console.info(`Node server running on ${address}:${port}`)
 })
-
-//// Helpers
-
-/**
- * Parse env content into rx key => value
- * @param {Buffer} buffer
- * @return {Array}
- */
-function parseEnv(buffer) {
-  const string = buffer.toString().trim()
-
-  return string
-    .split('\n')
-    .map(envRow => envRow.split('='))
-}
