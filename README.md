@@ -1,15 +1,19 @@
 # My location Google Maps overlay
 Show [Coordinates](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) (latitude, longitude, accuracy) on map
 
-Why not just draw [circle shape](https://developers.google.com/maps/documentation/javascript/examples/circle-simple)to show accuracy area ?
-- Package is using a HTML element to draw accuracy area. It's easier to style HTML element and work with native events than when using [google.maps.Circle](https://developers.google.com/maps/documentation/javascript/reference/polygon#Circle)
-- It's possible to choose pane layer.
-  This is handy when using multiple overlays.
-
-
 ![screenshot](./images/screenshot.png)
 
+
+## Motivation
+
+Why not just draw [circle shape](https://developers.google.com/maps/documentation/javascript/examples/circle-simple) to show accuracy area?
+- Package is using a HTML element to draw accuracy area. It's easier to style standarad HTML element and work with native events than using [google.maps.Circle](https://developers.google.com/maps/documentation/javascript/reference/polygon#Circle)
+- It's possible to choose pane layer
+  _(Handy when using multiple overlays)_.
+
+
 ## Installation
+
 ```sh
 npm install @piotr-cz/gmaps-overlay-mylocation
 ```
@@ -18,25 +22,28 @@ npm install @piotr-cz/gmaps-overlay-mylocation
 ## Setup
 
 ```js
-import mylocationOverlayFactory from 'gmaps-overlay-mylocation'
+// Import library
+import mylocationOverlayFactory from '@piotr-cz/gmaps-overlay-mylocation'
+
+// Import styles if your module bundler supports it
 import '@piotr-cz/gmaps-overlay-mylocation/dist/index.css'
 
-// Initialize Google Maps API your way
-//...
+// Initialize Google Maps API and create new map instance
+// ...
 
-// Initialize overlay using callback
-const mylocationOverlay = mylocationOverlayFactory(google.maps, {
+// Initialize overlay via callback
+const mylocationOverlay = mylocationOverlayFactory(window.google.maps, {
   map: mapInstance,
   onAdded: mylocationOverlay => console.log('MylocationOverlay: Initialized, may set coords now')
 })
 
 ```
 
-It's also possible to receive promise instead of using callback
+When you prefer promises over callbacks, use _initialize_ method:
 
 ```js
-// Initialize overlay aynchronously(requires Promise support)
-const mylocationOverlay = mylocationOverlayFactory(google.maps)
+// Initialize overlay aynchronously (requires Promise support)
+const mylocationOverlay = mylocationOverlayFactory(window.google.maps)
 
 await mylocationOverlay.initialize(mapInstance)
 ```
@@ -45,7 +52,7 @@ await mylocationOverlay.initialize(mapInstance)
 ## Usage
 
 ```js
-// Get position
+// Get geolocation position
 const position = await new Promise((resolve, reject) =>
   window.navigator.geolocation.getCurrentPosition(resolve, reject, {enableHighAccuracy: true})
 )
@@ -68,9 +75,10 @@ mylocationOverlay.setCoordinates(position.coords)
 
 ## Methods
 
+- **initialize(mapInstance: google.maps.Map): Promise** - Initialize overlay
 - **setCoordinates(coords: Coordinates)** - Set [Coordinates](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates). Automatically shows overlay
 - **show()** - Show overlay
 - **hide()** - Hide overlay
 - **toggle(state: boolean)** - Toggle overlay visibility
 - **getMarker(): google.maps.Marker** - Get marker
-- **getAccuracyElement(): HTMLElement** - Get accuracy element
+- **getAccuracyElement(): HTMLElement** - Get accuracy HTML element

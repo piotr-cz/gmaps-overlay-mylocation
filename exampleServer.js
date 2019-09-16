@@ -37,7 +37,8 @@ const server = http.createServer(async (request, response) => {
     case '/src/index.js':
     case '/dist/index.cjs.js':
     case '/dist/index.esm.js':
-    case '/dist/index.iife.js':
+    case '/dist/index.umd.js':
+    case '/dist/index.iife.js': // Not supported by microbundle
       contentType = 'text/javascript'
       break
 
