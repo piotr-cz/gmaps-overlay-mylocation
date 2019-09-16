@@ -26,7 +26,7 @@ npm install @piotr-cz/gmaps-overlay-mylocation
 import mylocationOverlayFactory from '@piotr-cz/gmaps-overlay-mylocation'
 
 // Import styles if your module bundler supports it
-import '@piotr-cz/gmaps-overlay-mylocation/dist/index.css'
+import '@piotr-cz/gmaps-overlay-mylocation/dist/gmaps-overlay-mylocation.css'
 
 // Initialize Google Maps API and create new map instance
 // ...

@@ -30,15 +30,15 @@ const server = http.createServer(async (request, response) => {
       contentType = 'text/html'
       break
 
-    case '/dist/index.css':
+    case '/dist/gmaps-overlay-mylocation.css':
       contentType = 'text/css'
       break
 
     case '/src/index.js':
-    case '/dist/index.cjs.js':
-    case '/dist/index.esm.js':
-    case '/dist/index.umd.js':
-    case '/dist/index.iife.js': // Not supported by microbundle
+    case '/dist/gmaps-overlay-mylocation.js':
+    case '/dist/gmaps-overlay-mylocation.es.js':
+    case '/dist/gmaps-overlay-mylocation.umd.js':
+    case '/dist/gmaps-overlay-mylocation.iife.js':
       contentType = 'text/javascript'
       break
 

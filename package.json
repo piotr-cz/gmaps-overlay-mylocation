@@ -2,8 +2,9 @@
   "name": "@piotr-cz/gmaps-overlay-mylocation",
   "version": "1.0.0",
   "description": "Google Maps mylocation overlay",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "source": "src/index.js",
+  "main": "dist/gmaps-overlay-mylocation.js",
+  "module": "dist/gmaps-overlay-mylocation.es.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/piotr-cz/gmaps-overlay-mylocation.git"
@@ -18,6 +19,8 @@
   ],
   "scripts": {
     "build": "rollup --config rollup.config.js",
+    "build2": "microbundle --format=es,cjs,umd --target=web --name=mylocationOverlayFactory --no-compress",
+    "watch": "microbundle watch",
     "npmpublish": "npm publish --access=public",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -25,6 +28,7 @@
   },
   "devDependencies": {
     "buble": "^0.19.8",
+    "microbundle": "^0.11.0",
     "rollup": "^1.17.0",
     "rollup-plugin-buble": "^0.19.8"
   }
