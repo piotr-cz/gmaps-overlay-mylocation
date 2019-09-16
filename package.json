@@ -18,8 +18,7 @@
     "My location"
   ],
   "scripts": {
-    "build": "rollup --config rollup.config.js",
-    "build2": "microbundle --format=es,cjs,umd --target=web --name=mylocationOverlayFactory --no-compress",
+    "build": "microbundle --format=es,cjs,umd --target=web --name=mylocationOverlayFactory --no-compress",
     "watch": "microbundle watch",
     "npmpublish": "npm publish --access=public",
     "prepare": "npm run build",
@@ -27,9 +26,6 @@
     "start-example": "node exampleServer.js"
   },
   "devDependencies": {
-    "buble": "^0.19.8",
-    "microbundle": "^0.11.0",
-    "rollup": "^1.17.0",
-    "rollup-plugin-buble": "^0.19.8"
+    "microbundle": "^0.11.0"
   }
 }
