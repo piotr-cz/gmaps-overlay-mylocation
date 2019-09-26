@@ -70,9 +70,9 @@ mylocationOverlay.setCoordinates(position.coords)
 - _{google.maps.Map}_ **map** - Map instance
 - _{boolean}_ **showMarker** - Show marker (defaults to `true`)
 - _{boolean}_ **showAccuracy** - Show accuracy area (defaults to `true`)
-- _{string}_ **paneName** - Define pane to use for accuracy element (defaults to `overlayLayer`, see [MapPanes](https://developers.google.com/maps/documentation/javascript/reference/overlay-view#MapPanes))
+- _{string}_ **paneName** - Define pane to use for accuracy element (defaults to `'overlayLayer'`, see [MapPanes](https://developers.google.com/maps/documentation/javascript/reference/overlay-view#MapPanes))
 - _{Object|string}_ **markerIcon** - Pass custom marker definition (see [Icon](https://developers.google.com/maps/documentation/javascript/reference/marker#Icon)|[Symbol](https://developers.google.com/maps/documentation/javascript/reference/marker#Symbol))
-- _{string}_ **accuracyClassName** - Accuracy element className (Defaults to `gmaps-overlay-mylocation-accuracy`)
+- _{string}_ **accuracyClassName** - Accuracy element className (Defaults to `'gmaps-overlay-mylocation-accuracy'`)
 - _{function}_ **onAdded** - Overlay initialized callback
 
 
